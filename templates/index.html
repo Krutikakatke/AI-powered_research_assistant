@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PaperLens AI</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<h1>📄 PaperLens AI</h1>
+<p>Upload research papers to analyze trends, clusters, gaps, and future directions.</p>
+
+<form method="POST" enctype="multipart/form-data">
+    <input type="file" name="pdfs" multiple required>
+    <br><br>
+    <button type="submit">Analyze Papers</button>
+</form>
+
+{% if results %}
+
+<hr>
+
+<h2>📌 Paper-wise Keywords & Clusters</h2>
+
+{% for paper in results.papers %}
+<div class="card">
+    <h3>{{ paper.name }}</h3>
+    <strong>Cluster:</strong> {{ paper.cluster }}
+    <ul>
+        {% for kw in paper.keywords %}
+        <li>{{ kw }}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endfor %}
+
+<hr>
+
+<h2>🔍 Research Gaps</h2>
+
+{% for cluster, keywords in results.gaps.items() %}
+<div class="card">
+    <strong>Cluster {{ cluster }}:</strong>
+    <ul>
+        {% for kw in keywords %}
+        <li>{{ kw }}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endfor %}
+
+<hr>
+
+<h2>🚀 Future Research Recommendations</h2>
+<ul>
+    {% for rec in results.recommendations %}
+    <li>{{ rec }}</li>
+    {% endfor %}
+</ul>
+
+<!-- 🔽 SAVE OUTPUT SECTION -->
+{% if results.saved_file %}
+<hr>
+<h2>💾 Output Saved</h2>
+<p>Your analysis has been saved successfully.</p>
+<p><strong>Report location:</strong></p>
+<code>{{ results.saved_file }}</code>
+{% endif %}
+
+{% endif %}
+
+</body>
+</html>
