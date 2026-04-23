@@ -1,6 +1,6 @@
-# PaperLens AI
+# hackathon project
 
-PaperLens AI is an AI-powered research assistant that analyzes academic papers to identify:
+This is an AI-powered research assistant that analyzes academic papers to identify:
 - Research themes
 - Emerging trends
 - Under-explored research gaps
